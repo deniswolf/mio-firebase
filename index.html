@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MIO on Firebase</title>
+
+</head>
+<body>
+<p><a href="javascript:login('facebook');">Launch demo &raquo;</a></p>
+<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
+<script type='text/javascript' src='https://cdn.firebase.com/v0/firebase-auth-client.js'></script>
+<script>
+var firebaseRef = new Firebase("https://momiamok.firebaseio.com");
+var authClient = new FirebaseAuthClient(firebaseRef, function(error, user) {
+    if (error) {
+        // an error occurred while attempting login
+        alert(error);
+    } else if (user) {
+        // user authenticated with Firebase
+        alert('User ID: ' + user.id + ', Provider: ' + user.provider);
+
+        // Log out so we can log in again with a different provider.
+        authClient.logout();
+    } else {
+        console.log('no login'+ new Date)
+        // user is logged out
+    }
+});
+function login(provider) {
+    console.log('call for login')
+    authClient.login(provider);
+}
+
+
+</script>
+
+</body>
+</html>
